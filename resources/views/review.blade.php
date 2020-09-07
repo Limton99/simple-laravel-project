@@ -6,6 +6,7 @@
   <div class="alert alert-warning">
     <h3>{{ $el->subject}}</h3>
     <p>{{ $el->message}}</p>
+    <a href="{{route('review-one', $el->id)}}" class="btn btn-warning">Детальнее</a>
   </div>
 @endforeach
 
