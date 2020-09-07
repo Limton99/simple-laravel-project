@@ -41,4 +41,32 @@ class MainController extends Controller
 
         return redirect()->route('review');
     }
+
+    public function reviewUpdate($id) {
+        $review = new Contact();
+        return view('review-update', ['review' => $review->find($id)]);
+    }
+
+    public function reviewUpdateSubmit($id, Request $request) {
+        $valid = $request->validate([
+            'email'=>'required|min:4|max:100',
+            'subject'=>'required|min:4|max:100',
+            'message'=>'required|min:4|max:100'
+        ]);
+
+        $review = Contact::find($id);
+        $review->email = $request->input('email');
+        $review->subject = $request->input('subject');
+        $review->message = $request->input('message');
+
+        $review->save();
+
+        return redirect()->route('review-one', $review->id);
+    }
+
+    public function reviewDelete($id) {
+        $review = Contact::find($id);
+        $review->delete();
+        return redirect()->route('review');
+    }
 }
